@@ -1,0 +1,22 @@
+sed '/SCELPHONO/ {N;N;N;s/SCELPHONO\n4 0 0\n0 4 0\n0 0 4/SCELPHONO\n2 0 0\n0 2 0\n0 0 2/}' trial.d12  >aa
+
+Search the file till SCELPHONO is found
+Then append the three following lines to the current pattern space using N;N;N;
+Check if the current pattern space matches SCELPHONO\n4 0 0\n0 4 0\n0 0 4
+If so, then substitute it with  SCELPHONO\n2 0 0\n0 2 0\n0 0 2
+
+source: https://stackoverflow.com/questions/12179437/replace-3-lines-with-another-line-sed-syntax
+
+sed '/MPP/,/2/d' trial.d12  > aa
+
+delete between MPP and 2
+source:
+https://www.cyberciti.biz/faq/sed-howto-remove-lines-paragraphs/
+
+sed '/SHRINK/ {N;s/SHRINK\n1 1/SHRINK\n6 6/}' trial.d12  >aa
+
+sed '1,81d' calcite_I_FREQCALC_V_116.573346_SHRINK_3_3_RESTART.out > b.txt
+
+sed '188,$d' calcite_I_FREQCALC_V_116.573346_SHRINK_3_3_RESTART.out > b.txt
+
+
