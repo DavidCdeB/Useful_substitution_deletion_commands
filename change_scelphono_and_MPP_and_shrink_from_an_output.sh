@@ -62,6 +62,9 @@ sed -i '/MPP/,/2/d' ${i}.d12
 # SHRINK 3 3
 sed -i '/SHRINK/ {N;s/SHRINK\n1 1/SHRINK\n3 3/}' ${i}.d12
 
+# Delete RESTART:
+sed -i '/RESTART/d' ${i}.d12
+
 $run ${i} 64 72:00
 
 sed -i s/select=3:ncpus=24/select=4:ncpus=24/ ${i}.qsub
