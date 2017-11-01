@@ -65,6 +65,17 @@ sed -i '/SHRINK/ {N;s/SHRINK\n1 1/SHRINK\n3 3/}' ${i}.d12
 # Delete RESTART:
 sed -i '/RESTART/d' ${i}.d12
 
+# Change:
+# TOLDEE
+# 8
+#by:
+# TOLDEE
+# 8
+# MPP
+# CMPLXFAC
+# 2
+sed -i '/TOLDEE/ {N;N;s/TOLDEE\n8/TOLDEE\n8\nMPP\nCMPLXFAC\n2/}'  ${i}_T.d12
+
 $run ${i} 64 72:00
 
 sed -i s/select=3:ncpus=24/select=4:ncpus=24/ ${i}.qsub
