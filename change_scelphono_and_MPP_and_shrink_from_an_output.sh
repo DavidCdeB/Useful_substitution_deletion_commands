@@ -76,6 +76,9 @@ sed -i '/RESTART/d' ${i}.d12
 # 2
 sed -i '/TOLDEE/ {N;N;s/TOLDEE\n8/TOLDEE\n8\nMPP\nCMPLXFAC\n2/}'  ${i}_T.d12
 
+# Extract volumes from a series of *_T.out outputs:
+grep  -A2  "LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - PRIMITIVE CELL" *T.out  |grep -v "LATTICE" |grep -v "VOLUME" | awk '{ print $1,    $8}' | grep -v "\-\-"
+
 $run ${i} 64 72:00
 
 sed -i s/select=3:ncpus=24/select=4:ncpus=24/ ${i}.qsub
