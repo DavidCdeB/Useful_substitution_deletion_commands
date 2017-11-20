@@ -86,11 +86,25 @@ sed -i '/TOLDEE/ {N;N;s/TOLDEE\n8/TOLDEE\n8\nMPP\nCMPLXFAC\n2/}'  ${i}_T.d12
 # 0
 sed -i '/DISPERSI/ {N;s/DISPERSI/DISPERSI\nRESTART\nPDOS\n1600 800\n0/}' ${i}_PDOS.d12
 
+#Substitute:
+# DISPERSI
+#by:
+# DISPERSI
+# RESTART
+# BANDS
+# 2 64
+# 5
+# 1 0 0   0 0 0
+# 0 0 0   1 1 1
+# 1 1 1   1 1 0
+# 1 1 0   1 0 0
+# 1 0 0   1 1 1
+sed -i '/DISPERSI/ {N;s/DISPERSI/DISPERSI\nRESTART\nBANDS\n2 64\n5\n1 0 0   0 0 0\n0 0 0   1 1 1\n1 1 1   1 1 0\n1 1 0   1 0 0\n1 0 0   1 1 1/}' ${INPUT}_PD.d12
+
 #Remove this block:
 # TEMPERAT 
 # 100 10 2000
 sed -i '/TEMPERAT/,/100 10 2000/d' ${i}_PDOS.d12
-
 
 # Extract volumes from a series of *_T.out outputs:
 grep  -A2  "LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - PRIMITIVE CELL" *T.out  |grep -v "LATTICE" |grep -v "VOLUME" | awk '{ print $1,    $8}' | grep -v "\-\-"
