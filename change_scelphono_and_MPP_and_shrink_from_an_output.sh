@@ -109,6 +109,17 @@ sed -i '/TEMPERAT/,/100 10 2000/d' ${i}_PDOS.d12
 # Extract volumes from a series of *_T.out outputs:
 grep  -A2  "LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - PRIMITIVE CELL" *T.out  |grep -v "LATTICE" |grep -v "VOLUME" | awk '{ print $1,    $8}' | grep -v "\-\-"
 
+# Given an imput file, this script splits the input file into 2 output files:
+grep -v "#" all_data.dat > all_dat_without_title.dat
+f=`basename all_dat_without_title.dat .dat`
+split -d -a2 -l2 --additional-suffix=.dat  ${f}.dat ${f}_
+#   -d, --numeric-suffixes  use numeric suffixes instead of alphabetic
+#   -a, --suffix-length=N   use suffixes of length N (default 2)
+#       If the parent file will produce 10 files, then -a2
+#       If the parent file will produce 100 files, then -a3
+#   --additional-suffix=SUFFIX  append an additional SUFFIX to file names.
+
+
 $run ${i} 64 72:00
 sed -i s/select=3:ncpus=24/select=4:ncpus=24/ ${i}.qsub
 qsub -q pqnmh ${i}.qsub
