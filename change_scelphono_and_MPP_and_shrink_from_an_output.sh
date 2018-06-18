@@ -109,6 +109,37 @@ sed -i '/TEMPERAT/,/100 10 2000/d' ${i}_PDOS.d12
 # Extract volumes from a series of *_T.out outputs:
 grep  -A2  "LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - PRIMITIVE CELL" *T.out  |grep -v "LATTICE" |grep -v "VOLUME" | awk '{ print $1,    $8}' | grep -v "\-\-"
 
+# Imagine you are greping a string into files on folders. If the file is not in a folder,
+# grep will complain saying there is not cuch file, so that you can see which output
+# was not generated. 
+# If the output is present but is not a finished run, grep will not prompt any message,
+# because he has found the file but not the string.
+# The only way of make grep to say something if the string has not been found (but the file yes)
+# is by doing:
+# This will show up the path of the files:
+
+files="
+128.358654
+120.643070
+"
+
+Scriptdir=`pwd`
+
+for i in ${files}; do
+
+if grep  "Disk usage:" ${i}/${i}.out; then
+    echo "Finished!!"
+else
+    echo "Did not!!"
+    cd ${i}
+    pwd
+    cd ${Scriptdir}
+
+fi
+
+done
+
+
 # Given an imput file, this script splits the input file into 2 output files:
 grep -v "#" all_data.dat > all_dat_without_title.dat
 f=`basename all_dat_without_title.dat .dat`
