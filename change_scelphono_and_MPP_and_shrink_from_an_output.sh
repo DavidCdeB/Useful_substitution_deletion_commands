@@ -139,6 +139,25 @@ fi
 
 done
 
+# Remove RANGE:
+sed -i '/RANGE/d' ./calcite_optimization_bulk_modif_1_optimised_EOS_analysis.d12
+
+# Remove 0.77
+sed -i '/0.77/d' ./calcite_optimization_bulk_modif_1_optimised_EOS_analysis.d12
+
+# sed EOS for:
+#SCELPHONO
+#4 0 0
+#0 4 0
+#0 0 4
+#FREQCALC
+#NOINTENS
+#NOOPTGEOM
+#DISPERSI
+
+newstring="SCELPHONO\n4 0 0\n0 4 0\n0 0 4\nFREQCALC\nNOINTENS\nDISPERSI"
+sed -i "s/EOS/$newstring/" calcite_optimization_bulk_modif_1_optimised_EOS_analysis.d12
+
 
 # Given an imput file, this script splits the input file into 2 output files:
 grep -v "#" all_data.dat > all_dat_without_title.dat
