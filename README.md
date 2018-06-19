@@ -1,1 +1,2 @@
-# change_scelphono_and_MPP_and_shrink_from_an_output
+
+# Useful substitution or deletion commands
