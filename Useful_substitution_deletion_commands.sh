@@ -106,6 +106,17 @@ sed -i '/DISPERSI/ {N;s/DISPERSI/DISPERSI\nRESTART\nBANDS\n2 64\n5\n1 0 0   0 0 
 # 100 10 2000
 sed -i '/TEMPERAT/,/100 10 2000/d' ${i}_PDOS.d12
 
+#Remove this block:
+# MULTITASK
+# 31
+sed -i '/MULTITASK/,/31$/d' ${i}.d12
+
+#Remove this block:
+# ENDSCF
+# 
+# ... end of file
+sed -i '/^$/,$d'  ${i}.d12
+
 # Extract volumes from a series of *_T.out outputs:
 grep  -A2  "LATTICE PARAMETERS  (ANGSTROMS AND DEGREES) - PRIMITIVE CELL" *T.out  |grep -v "LATTICE" |grep -v "VOLUME" | awk '{ print $1,    $8}' | grep -v "\-\-"
 
