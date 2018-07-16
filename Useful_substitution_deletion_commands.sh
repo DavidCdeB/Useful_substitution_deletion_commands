@@ -38,6 +38,9 @@ sed -i '/date/,/input data/d' ${i}.d12
 # Delete from "Defaulting to ethernet" till the end in the *.out file:
 sed -i '/Defaulting to ethernet/,$d' ${i}.d12
 
+# Delete from "PROCESSORS WORKING" till the end in the *.out file:
+sed -i '/PROCESSORS WORKING/,$d' ${i}.d12
+
 #Change:
 # SCELPHONO
 # 4 0 0 
