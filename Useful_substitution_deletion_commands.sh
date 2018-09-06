@@ -190,3 +190,39 @@ qsub -q pqnmh ${i}.qsub
 cd $Scriptdir
 
 done
+
+# In order to copy temporary files before run finishes:
+###################################################
+hostname="r2i0n6"
+tmp="/scratch2/pbs.115582.cx2/120.417178_3253"
+
+echo "scp dcarrasc@${hostname}:${tmp}/${i}"
+
+
+at 19:34 <<EOF
+scp dcarrasc@${hostname}:${tmp}/SCFOUT.LOG .
+scp dcarrasc@${hostname}:${tmp}/fort.13 .
+scp dcarrasc@${hostname}:${tmp}/fort.9 .
+scp dcarrasc@${hostname}:${tmp}/fort.20 .
+scp dcarrasc@${hostname}:${tmp}/FREQINFO.DAT .
+EOF
+################################################
+
+# I dont manage for this option to work:
+FILES="
+SCFOUT.LOG
+fort.13
+fort.9
+fort.20
+FREQINFO.DAT
+"
+hostname="r2i0n6"
+tmp="/scratch2/pbs.115582.cx2/120.417178_3253"
+
+echo "scp dcarrasc@${hostname}:${tmp}/${i}"
+#exit
+
+for i in ${FILES}; do
+`scp dcarrasc@${hostname}:${tmp}/${i} .` | at 19:18
+done
+
